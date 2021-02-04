@@ -1,0 +1,26 @@
+version: "3.3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      DATABASE_ENGINE: mongo
+      REDIS_URL: redis://redis:6379
+      MONGO_URL: mongodb://mongo:27017/shortener
+      MONGO_TIMEOUT: 30
+      MONGO_DB: shortener
+      PORT: 8080
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/app
+
+  redis:
+    image: redis
+    ports:
+      - 6379
+  mongo:
+    image: mongo
+    ports:
+      - 27017
